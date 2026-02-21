@@ -1,0 +1,238 @@
+rules:
+  # ============================================================
+  # CRITICAL — These auto-FAIL the PR (severity: ERROR)
+  # ============================================================
+
+  # 1. Shell injection via os/subprocess with variable args
+  - id: a0-exec-injection
+    patterns:
+      - pattern-either:
+          - pattern: os.system($CMD)
+          - pattern: os.popen($CMD)
+          - pattern: subprocess.call($CMD, ...)
+          - pattern: subprocess.run($CMD, ...)
+          - pattern: subprocess.Popen($CMD, ...)
+          - pattern: subprocess.check_output($CMD, ...)
+          - pattern: subprocess.check_call($CMD, ...)
+      - pattern-not: os.system("...")
+      - pattern-not: os.popen("...")
+      - pattern-not: subprocess.call(["...", ...], ...)
+      - pattern-not: subprocess.run(["...", ...], ...)
+      - pattern-not: subprocess.Popen(["...", ...], ...)
+      - pattern-not: subprocess.check_output(["...", ...], ...)
+      - pattern-not: subprocess.check_call(["...", ...], ...)
+    message: >
+      Shell command execution with dynamic arguments detected.
+      Plugin passes a variable to a shell execution function, which
+      could allow command injection. Use a fixed command list instead.
+    severity: ERROR
+    languages: [python]
+    metadata:
+      category: security
+      subcategory: command-injection
+      confidence: HIGH
+
+  # 2. eval/exec usage (code execution from strings)
+  - id: a0-eval-exec
+    patterns:
+      - pattern-either:
+          - pattern: eval($X)
+          - pattern: exec($X)
+          - pattern: compile($X, ...)
+    message: >
+      Dynamic code execution via eval/exec/compile detected.
+      This allows arbitrary code execution and is almost never
+      needed in a plugin. Use explicit function calls instead.
+    severity: ERROR
+    languages: [python]
+    metadata:
+      category: security
+      subcategory: code-execution
+      confidence: HIGH
+
+  # 3. Data exfiltration — HTTP requests to non-API endpoints
+  - id: a0-data-exfil
+    patterns:
+      - pattern-either:
+          - pattern: requests.post($URL, ...)
+          - pattern: requests.put($URL, ...)
+          - pattern: httpx.post($URL, ...)
+          - pattern: httpx.put($URL, ...)
+          - pattern: aiohttp.ClientSession().post($URL, ...)
+          - pattern: urllib.request.urlopen($URL, data=...)
+    message: >
+      Outbound HTTP POST/PUT request detected. Plugin is sending
+      data to an external server. Verify the destination URL and
+      ensure no user data, credentials, or agent context is leaked.
+    severity: ERROR
+    languages: [python]
+    metadata:
+      category: security
+      subcategory: data-exfiltration
+      confidence: MEDIUM
+
+  # 4. Credential harvesting — reading env vars or config files
+  - id: a0-credential-harvest
+    patterns:
+      - pattern-either:
+          - pattern: os.environ[...]
+          - pattern: os.environ.get(...)
+          - pattern: os.getenv(...)
+      - metavariable-regex:
+          metavariable: $KEY
+          regex: (?i)(key|secret|token|password|credential|api_key|apikey|auth)
+    message: >
+      Access to sensitive environment variable detected. Plugin
+      reads an env var whose name suggests it contains credentials.
+      Plugins should not access credentials outside their own scope.
+    severity: ERROR
+    languages: [python]
+    metadata:
+      category: security
+      subcategory: credential-access
+      confidence: MEDIUM
+
+  # 5. Obfuscation — base64 decode → exec chains
+  - id: a0-obfuscation
+    patterns:
+      - pattern-either:
+          - pattern: exec(base64.b64decode(...))
+          - pattern: eval(base64.b64decode(...))
+          - pattern: exec(base64.b64decode(...).decode(...))
+          - pattern: eval(base64.b64decode(...).decode(...))
+          - pattern: |
+              $X = base64.b64decode(...)
+              ...
+              exec($X)
+          - pattern: |
+              $X = base64.b64decode(...)
+              ...
+              eval($X)
+    message: >
+      Obfuscated code execution detected. Plugin decodes base64
+      content and executes it, which is a common technique to
+      hide malicious payloads. This is almost certainly malicious.
+    severity: ERROR
+    languages: [python]
+    metadata:
+      category: security
+      subcategory: obfuscation
+      confidence: HIGH
+
+  # 6. File system escape — accessing paths outside plugin dir
+  - id: a0-file-escape
+    patterns:
+      - pattern-either:
+          - pattern: open("/etc/...", ...)
+          - pattern: open("/root/...", ...)
+          - pattern: open("/home/...", ...)
+          - pattern: open("/tmp/...", ...)
+          - pattern: open("/var/...", ...)
+          - pattern: open("/usr/...", ...)
+          - pattern: open("/proc/...", ...)
+          - pattern: open("/sys/...", ...)
+          - pattern: pathlib.Path("/etc/...")
+          - pattern: pathlib.Path("/root/...")
+          - pattern: pathlib.Path("/proc/...")
+          - pattern: pathlib.Path("/sys/...")
+    message: >
+      File access outside plugin directory detected. Plugin attempts
+      to read/write system paths. Plugins should only access files
+      within their own directory or Agent Zero's designated paths.
+    severity: ERROR
+    languages: [python]
+    metadata:
+      category: security
+      subcategory: path-traversal
+      confidence: HIGH
+
+  # ============================================================
+  # WARNING — Flagged for reviewer attention (severity: WARNING)
+  # ============================================================
+
+  # 7. Network access — any outbound HTTP (GET included)
+  - id: a0-network-access
+    patterns:
+      - pattern-either:
+          - pattern: requests.get(...)
+          - pattern: requests.post(...)
+          - pattern: requests.put(...)
+          - pattern: requests.delete(...)
+          - pattern: httpx.get(...)
+          - pattern: httpx.post(...)
+          - pattern: aiohttp.ClientSession()
+          - pattern: urllib.request.urlopen(...)
+          - pattern: socket.socket(...)
+    message: >
+      Outbound network access detected. Plugin makes HTTP requests
+      or opens network sockets. Verify all network calls are
+      necessary and connect to expected, safe endpoints.
+    severity: WARNING
+    languages: [python]
+    metadata:
+      category: security
+      subcategory: network-access
+      confidence: LOW
+
+  # 8. File writes — writing outside expected locations
+  - id: a0-file-write
+    patterns:
+      - pattern-either:
+          - pattern: open($PATH, "w", ...)
+          - pattern: open($PATH, "a", ...)
+          - pattern: open($PATH, "wb", ...)
+          - pattern: open($PATH, "ab", ...)
+          - pattern: $X.write_text(...)
+          - pattern: $X.write_bytes(...)
+          - pattern: shutil.copy(...)
+          - pattern: shutil.copy2(...)
+          - pattern: shutil.copytree(...)
+          - pattern: shutil.move(...)
+    message: >
+      File write operation detected. Plugin writes files to disk.
+      Verify write targets are within the plugin's own directory
+      and don't overwrite Agent Zero core files or user data.
+    severity: WARNING
+    languages: [python]
+    metadata:
+      category: security
+      subcategory: file-write
+      confidence: LOW
+
+  # 9. Prompt injection — modifying system prompts or agent behavior
+  - id: a0-prompt-injection
+    patterns:
+      - pattern-either:
+          - pattern: $AGENT.config.prompts = ...
+          - pattern: $AGENT.config.prompts.set(...)
+          - pattern: $X.system_prompt = ...
+          - pattern: $X.system_message = ...
+    message: >
+      Prompt modification detected. Plugin attempts to modify agent
+      system prompts or configuration. This could alter agent behavior
+      in unexpected ways. Verify the modification is safe and intended.
+    severity: WARNING
+    languages: [python]
+    metadata:
+      category: security
+      subcategory: prompt-injection
+      confidence: MEDIUM
+
+  # 10. JavaScript dangerous patterns (for webui components)
+  - id: a0-js-dangerous
+    patterns:
+      - pattern-either:
+          - pattern: eval(...)
+          - pattern: Function(...)
+          - pattern: document.write(...)
+          - pattern: $EL.innerHTML = $X
+    message: >
+      Dangerous JavaScript pattern detected in plugin UI component.
+      eval(), Function(), document.write(), and innerHTML assignment
+      can lead to XSS. Use textContent or safe DOM APIs instead.
+    severity: WARNING
+    languages: [javascript]
+    metadata:
+      category: security
+      subcategory: xss
+      confidence: MEDIUM

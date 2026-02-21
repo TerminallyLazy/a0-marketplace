@@ -1,0 +1,125 @@
+name: Plugin Security Scan
+
+on:
+  pull_request:
+    paths:
+      - 'registry.json'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  scan:
+    name: Scan Plugin Code
+    runs-on: ubuntu-latest
+    env:
+      SCAN_DIR: /tmp/plugin-scan
+
+    steps:
+      # ── 1. Checkout registry repo ──────────────────────────
+      - name: Checkout registry
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for diffing against base
+
+      # ── 2. Validate registry.json changes ──────────────────
+      - name: Validate registry entries
+        id: validate
+        run: bash .github/scripts/validate-registry.sh
+        continue-on-error: true
+
+      # ── 3. Clone new/changed plugin repos ──────────────────
+      - name: Clone plugin repositories
+        id: clone
+        if: steps.validate.outputs.PLUGIN_REPOS != ''
+        run: |
+          mkdir -p "$SCAN_DIR"
+
+          echo "${{ steps.validate.outputs.PLUGIN_REPOS }}" | while IFS=' ' read -r repo_url branch plugin_path; do
+            # Skip empty lines
+            [ -z "$repo_url" ] && continue
+
+            # Extract repo name for directory
+            repo_name=$(echo "$repo_url" | sed 's|https://github.com/||' | tr '/' '_')
+            clone_dir="$SCAN_DIR/$repo_name"
+
+            echo "Cloning $repo_url (branch: $branch, path: $plugin_path)"
+
+            # Sparse checkout — only clone the plugin directory
+            git clone --depth 1 --branch "$branch" --filter=blob:none --sparse \
+              "$repo_url" "$clone_dir" 2>/dev/null || {
+                echo "::warning::Failed to clone $repo_url (branch: $branch)"
+                continue
+              }
+
+            cd "$clone_dir"
+            git sparse-checkout set "$plugin_path"
+            cd -
+
+            echo "✅ Cloned $repo_url → $clone_dir/$plugin_path"
+          done
+
+          # List what we got
+          echo "=== Cloned plugin files ==="
+          find "$SCAN_DIR" -type f -name "*.py" -o -name "*.js" -o -name "*.html" | head -50
+          echo "CLONE_SUCCESS=true" >> "$GITHUB_OUTPUT"
+
+      # ── 4. Install and run Semgrep ─────────────────────────
+      - name: Install Semgrep
+        if: steps.clone.outputs.CLONE_SUCCESS == 'true'
+        run: pip install semgrep
+
+      - name: Run Semgrep scan
+        id: semgrep
+        if: steps.clone.outputs.CLONE_SUCCESS == 'true'
+        run: |
+          semgrep scan \
+            --config .github/semgrep-rules/agent-zero-plugins.yml \
+            --json \
+            --output semgrep-results.json \
+            "$SCAN_DIR" || true
+
+          # Show summary in logs
+          if [ -f semgrep-results.json ]; then
+            total=$(jq '.results | length' semgrep-results.json)
+            errors=$(jq '[.results[] | select(.extra.severity == "ERROR")] | length' semgrep-results.json)
+            warnings=$(jq '[.results[] | select(.extra.severity == "WARNING")] | length' semgrep-results.json)
+            echo "Semgrep found: $errors critical, $warnings warnings ($total total)"
+            echo "SEMGREP_CRITICAL=$errors" >> "$GITHUB_OUTPUT"
+            echo "SEMGREP_WARNINGS=$warnings" >> "$GITHUB_OUTPUT"
+          else
+            echo "No semgrep results file generated"
+            echo '{"results":[],"errors":[],"version":""}' > semgrep-results.json
+            echo "SEMGREP_CRITICAL=0" >> "$GITHUB_OUTPUT"
+            echo "SEMGREP_WARNINGS=0" >> "$GITHUB_OUTPUT"
+          fi
+
+      # ── 5. Post results as PR comment ──────────────────────
+      - name: Report scan results
+        if: always()
+        env:
+          SEMGREP_OUTPUT: semgrep-results.json
+          REGISTRY_ERRORS: ${{ steps.validate.outputs.VALIDATION_ERRORS }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash .github/scripts/report-results.sh
+
+      # ── 6. Set final status ────────────────────────────────
+      - name: Check for failures
+        if: always()
+        run: |
+          # Fail if registry validation failed
+          if [ "${{ steps.validate.outcome }}" = "failure" ]; then
+            echo "::error::Registry validation failed"
+            exit 1
+          fi
+
+          # Fail if semgrep found critical issues
+          if [ "${{ steps.semgrep.outputs.SEMGREP_CRITICAL }}" != "0" ] && \
+             [ "${{ steps.semgrep.outputs.SEMGREP_CRITICAL }}" != "" ]; then
+            echo "::error::Semgrep found critical security issues"
+            exit 1
+          fi
+
+          echo "✅ All checks passed"
