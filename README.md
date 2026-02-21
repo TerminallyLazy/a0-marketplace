@@ -10,7 +10,7 @@ Browse and install plugins directly from Agent Zero's built-in Marketplace (side
 
 ### Submitting a Plugin
 
-1. Create your plugin following the [Agent Zero Plugin System](https://github.com/frdel/agent-zero/blob/main/PLUGIN_SYSTEM.md) conventions.
+1. Create your plugin following the [Agent Zero Plugin System](https://github.com/TerminallyLazy/a0-marketplace/blob/main/PLUGIN_SYSTEM.md) conventions.
 2. Ensure your plugin repo contains a valid `plugin.json` at the plugin root.
 3. Submit via the [marketplace website](https://a0-marketplace.vercel.app/submit), or open a PR adding your plugin to `registry.json`.
 
