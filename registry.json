@@ -6,7 +6,7 @@
       "name": "Memory",
       "description": "Provides persistent memory capabilities to Agent Zero agents.",
       "author": "agent0ai",
-      "repo_url": "https://github.com/frdel/agent-zero",
+      "repo_url": "https://github.com/agent0ai/agent-zero",
       "plugin_path": "plugins/memory",
       "version": "1.0.0",
       "featured": true,
@@ -23,7 +23,7 @@
       "name": "Example Agent",
       "description": "Example agent plugin demonstrating the Agent Zero plugin system.",
       "author": "agent0ai",
-      "repo_url": "https://github.com/frdel/agent-zero",
+      "repo_url": "https://github.com/agent0ai/agent-zero",
       "plugin_path": "plugins/example_agent",
       "version": "1.0.0",
       "featured": false,
@@ -46,8 +46,8 @@
       "featured": false,
       "tags": [
         "agentic",
-        "agent zero",
-        "autonomous ai",
+        "agent-zero",
+        "autonomous-ai",
         "plugins",
         "extensions"
       ],
