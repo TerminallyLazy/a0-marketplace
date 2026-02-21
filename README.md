@@ -1,6 +1,6 @@
 # Agent Zero Plugin Marketplace
 
-The official plugin registry for [Agent Zero](https://github.com/frdel/agent-zero).
+The official plugin registry for [Agent Zero](https://github.com/agent0ai/agent-zero).
 
 ## For Users
 
