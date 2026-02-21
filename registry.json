@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "plugins": [
+    {
+      "id": "memory",
+      "name": "Memory",
+      "description": "Provides persistent memory capabilities to Agent Zero agents.",
+      "author": "frdel",
+      "repo_url": "https://github.com/frdel/agent-zero",
+      "plugin_path": "plugins/memory",
+      "version": "1.0.0",
+      "featured": true,
+      "tags": ["memory", "knowledge", "core"],
+      "icon": "neurology",
+      "min_agent_zero_version": "0.8.0"
+    },
+    {
+      "id": "browser_use",
+      "name": "Browser Use",
+      "description": "Enables agents to browse and interact with web pages.",
+      "author": "frdel",
+      "repo_url": "https://github.com/frdel/agent-zero",
+      "plugin_path": "plugins/browser_use",
+      "version": "1.0.0",
+      "featured": true,
+      "tags": ["browser", "web", "automation", "core"],
+      "icon": "language",
+      "min_agent_zero_version": "0.8.0"
+    },
+    {
+      "id": "example_agent",
+      "name": "Example Agent",
+      "description": "Example agent plugin demonstrating the Agent Zero plugin system.",
+      "author": "frdel",
+      "repo_url": "https://github.com/frdel/agent-zero",
+      "plugin_path": "plugins/example_agent",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": ["example", "demo", "template"],
+      "icon": "school",
+      "min_agent_zero_version": "0.8.0"
+    }
+  ]
+}
