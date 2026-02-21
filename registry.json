@@ -36,6 +36,22 @@
       "min_agent_zero_version": "0.8.0"
     },
     {
+      "id": "prompt-stomper",
+      "name": "Prompt Stomper",
+      "description": "Detects and prevents prompt injection attacks \u2014 direct and indirect.",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/a0-community-plugins/prompt-stomper",
+      "plugin_path": ".",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "security",
+        "prompt-injection",
+        "prevention"
+      ],
+      "icon": "shield"
+    },
+    {
       "id": "a0-marketplace",
       "name": "A0 Marketplace",
       "description": "Agent Zero Plugin Marketplace",
