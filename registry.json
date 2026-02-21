@@ -34,6 +34,24 @@
       ],
       "icon": "school",
       "min_agent_zero_version": "0.8.0"
+    },
+    {
+      "id": "a0-marketplace",
+      "name": "A0 Marketplace",
+      "description": "Agent Zero Plugin Marketplace",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/a0-community-plugins/a0-marketplace",
+      "plugin_path": ".",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "agentic",
+        "agent zero",
+        "autonomous ai",
+        "plugins",
+        "extensions"
+      ],
+      "icon": "store"
     }
   ]
 }
