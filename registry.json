@@ -10,7 +10,11 @@
       "plugin_path": "plugins/memory",
       "version": "1.0.0",
       "featured": true,
-      "tags": ["memory", "knowledge", "core"],
+      "tags": [
+        "memory",
+        "knowledge",
+        "core"
+      ],
       "icon": "neurology",
       "min_agent_zero_version": "0.8.0"
     },
@@ -23,7 +27,12 @@
       "plugin_path": "plugins/browser_use",
       "version": "1.0.0",
       "featured": true,
-      "tags": ["browser", "web", "automation", "core"],
+      "tags": [
+        "browser",
+        "web",
+        "automation",
+        "core"
+      ],
       "icon": "language",
       "min_agent_zero_version": "0.8.0"
     },
@@ -36,9 +45,29 @@
       "plugin_path": "plugins/example_agent",
       "version": "1.0.0",
       "featured": false,
-      "tags": ["example", "demo", "template"],
+      "tags": [
+        "example",
+        "demo",
+        "template"
+      ],
       "icon": "school",
       "min_agent_zero_version": "0.8.0"
+    },
+    {
+      "id": "prompt-stomper",
+      "name": "Prompt Stomper",
+      "description": "Prompt injection prevention plugin",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/TerminallyLazy/agent-zero/tree/A0-prompt-stomp",
+      "plugin_path": "/Users/lazy/agent-zero-dev/plugins/prompt_stomper",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "agent-zero",
+        "plugins",
+        "prompt-injection-prevention"
+      ],
+      "icon": "extension"
     }
   ]
 }
