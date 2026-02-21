@@ -19,24 +19,6 @@
       "min_agent_zero_version": "0.8.0"
     },
     {
-      "id": "browser_use",
-      "name": "Browser Use",
-      "description": "Enables agents to browse and interact with web pages.",
-      "author": "agent0ai",
-      "repo_url": "https://github.com/frdel/agent-zero",
-      "plugin_path": "plugins/browser_use",
-      "version": "1.0.0",
-      "featured": true,
-      "tags": [
-        "browser",
-        "web",
-        "automation",
-        "core"
-      ],
-      "icon": "language",
-      "min_agent_zero_version": "0.8.0"
-    },
-    {
       "id": "example_agent",
       "name": "Example Agent",
       "description": "Example agent plugin demonstrating the Agent Zero plugin system.",
@@ -52,23 +34,6 @@
       ],
       "icon": "school",
       "min_agent_zero_version": "0.8.0"
-    },
-    {
-      "id": "prompt-stomper",
-      "name": "Prompt Stomper",
-      "description": "Prompt injection prevention plugin for Agent Zero.",
-      "author": "TerminallyLazy",
-      "repo_url": "https://github.com/TerminallyLazy/agent-zero",
-      "branch": "A0-prompt-stomp",
-      "plugin_path": "plugins/prompt_stomper",
-      "version": "1.0.0",
-      "featured": false,
-      "tags": [
-        "security",
-        "prompt-injection",
-        "prevention"
-      ],
-      "icon": "shield"
     }
   ]
 }
