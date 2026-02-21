@@ -36,7 +36,7 @@
       "min_agent_zero_version": "0.8.0"
     },
     {
-      "id": "prompt-stomper",
+      "id": "prompt_stomper",
       "name": "Prompt Stomper",
       "description": "Detects and prevents prompt injection attacks \u2014 direct and indirect.",
       "author": "TerminallyLazy",
