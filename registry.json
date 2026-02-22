@@ -84,6 +84,23 @@
         "plugins"
       ],
       "icon": "visibility"
+    },
+    {
+      "id": "edgequake-graphrag",
+      "name": "Edgequake GraphRAG",
+      "description": "High-performance GraphRAG inspired from LightRag written in Rust",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/a0-community-plugins/edgequake-graphrag",
+      "plugin_path": ".",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "GraphRAG",
+        "agent-zero",
+        "autonomous-ai",
+        "agentic-ai"
+      ],
+      "icon": "graph_4"
     }
   ]
 }
