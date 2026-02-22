@@ -68,22 +68,6 @@
         "extensions"
       ],
       "icon": "store"
-    },
-    {
-      "id": "langfuse-observability",
-      "name": "Langfuse Observability ",
-      "description": "Plugin for observability of Agent Zero utilizing Langfuse and LiteLLM.",
-      "author": "TerminallyLazy",
-      "repo_url": "https://github.com/a0-community-plugins/langfuse-observability",
-      "plugin_path": ".",
-      "version": "1.0.0",
-      "featured": false,
-      "tags": [
-        "agent-zero",
-        "autonomous-ai",
-        "plugins"
-      ],
-      "icon": "visibility"
     }
   ]
 }
