@@ -7,7 +7,7 @@
 
 ### Checklist
 
-- [ ] Plugin has a valid `plugin.json`
+- [ ] Plugin has a valid `plugin.yaml`
 - [ ] Repository is public on GitHub
 - [ ] Plugin follows Agent Zero plugin conventions
 - [ ] No duplicate `id` in registry.json
