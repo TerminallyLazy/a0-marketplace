@@ -117,6 +117,22 @@
         "superpowers"
       ],
       "icon": "developer_guide"
+    },
+    {
+      "id": "amplihack-dev-framework",
+      "name": "Amplihack Dev Framework",
+      "description": "Amplihack Development Framework plugin for Agent Zero",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/a0-community-plugins/amplihack-dev-framework",
+      "plugin_path": ".",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "agent-zero",
+        "plugin",
+        "amplihack"
+      ],
+      "icon": "developer_guide"
     }
   ]
 }
