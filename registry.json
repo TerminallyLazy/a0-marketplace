@@ -119,18 +119,18 @@
       "icon": "developer_guide"
     },
     {
-      "id": "bmad-dev-framework",
-      "name": "BMAD Dev Framework",
-      "description": "BMAD Development Framework plugin for Agent Zero",
+      "id": "agent-os-dev-framework",
+      "name": "Agent OS Dev Framework",
+      "description": "Agent OS Development Framework plugin for Agent Zero",
       "author": "TerminallyLazy",
-      "repo_url": "https://github.com/a0-community-plugins/bmad-dev-framework",
+      "repo_url": "https://github.com/a0-community-plugins/agent-os-dev-framework",
       "plugin_path": ".",
       "version": "1.0.0",
       "featured": false,
       "tags": [
         "agent-zero",
         "plugin",
-        "BMAD"
+        "agent-os"
       ],
       "icon": "developer_guide"
     }
