@@ -117,6 +117,22 @@
         "superpowers"
       ],
       "icon": "developer_guide"
+    },
+    {
+      "id": "spec-kit-dev-framework",
+      "name": "Spec Kit Dev Framework",
+      "description": "Github's Spec-Kit Development Framework plugin for Agent Zero",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/a0-community-plugins/spec-kit-dev-framework",
+      "plugin_path": ".",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "agent-zero",
+        "plugin",
+        "spec-kit"
+      ],
+      "icon": "developer_guide"
     }
   ]
 }
