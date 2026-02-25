@@ -133,6 +133,103 @@
         "spec-kit"
       ],
       "icon": "developer_guide"
+    },
+        },
+    {
+      "id": "amplifier-dev-framework",
+      "name": "Amplifier Dev Framework",
+      "description": "Amplifier Development Framework plugin for Agent Zero",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/a0-community-plugins/amplifier-dev-framework",
+      "plugin_path": ".",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "agent-zero",
+        "plugin",
+        "amplifier"
+      ],
+      "icon": "developer_guide"
+    },
+    {
+      "id": "gsd-dev-framework",
+      "name": "GSD Dev Framework",
+      "description": "Get Shit Done Development Framework plugin for Agent Zero",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/a0-community-plugins/gsd-dev-framework",
+      "plugin_path": ".",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "agent-zero",
+        "plugin",
+        "get-shit-done"
+      ],
+      "icon": "developer_guide"
+    },
+    {
+      "id": "amplihack-dev-framework",
+      "name": "Amplihack Dev Framework",
+      "description": "Amplihack Development Framework plugin for Agent Zero",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/a0-community-plugins/amplihack-dev-framework",
+      "plugin_path": ".",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "agent-zero",
+        "plugin",
+        "amplihack"
+      ],
+      "icon": "developer_guide"
+    },
+    {
+      "id": "prp-dev-framework",
+      "name": "PRP Dev Framework",
+      "description": "PRP Development Framework plugin for Agent Zero",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/a0-community-plugins/prp-dev-framework",
+      "plugin_path": ".",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "agent-zero",
+        "plugin",
+        "prp"
+      ],
+      "icon": "developer_guide"
+    },
+    {
+      "id": "bmad-dev-framework",
+      "name": "BMAD Dev Framework",
+      "description": "BMAD Development Framework plugin for Agent Zero",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/a0-community-plugins/bmad-dev-framework",
+      "plugin_path": ".",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "agent-zero",
+        "plugin",
+        "bmad"
+      ],
+      "icon": "developer_guide"
+    },
+    {
+      "id": "agent-os-dev-framework",
+      "name": "Agent OS Dev Framework",
+      "description": "Agent OS Development Framework plugin for Agent Zero",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/a0-community-plugins/agent-os-dev-framework",
+      "plugin_path": ".",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "agent-zero",
+        "plugin",
+        "agent-os"
+      ],
+      "icon": "developer_guide"
     }
   ]
 }
