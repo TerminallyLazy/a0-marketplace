@@ -117,6 +117,22 @@
         "superpowers"
       ],
       "icon": "developer_guide"
+    },
+    {
+      "id": "amplifier-dev-framework",
+      "name": "Amplifier Dev Framework",
+      "description": "Amplifier Development Framework plugin for Agent Zero",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/a0-community-plugins/amplifier-dev-framework",
+      "plugin_path": ".",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "agent-zero",
+        "plugin",
+        "amplifier"
+      ],
+      "icon": "developer_guide"
     }
   ]
 }
