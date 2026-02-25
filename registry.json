@@ -117,6 +117,22 @@
         "superpowers"
       ],
       "icon": "developer_guide"
+    },
+    {
+      "id": "prp-dev-framework",
+      "name": "PRP Dev Framework",
+      "description": "PRP Development Framework plugin for Agent Zero",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/a0-community-plugins/prp-dev-framework",
+      "plugin_path": ".",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "agent-zero",
+        "plugin",
+        "prp-framework"
+      ],
+      "icon": "developer_guide"
     }
   ]
 }
