@@ -101,6 +101,22 @@
         "agentic-ai"
       ],
       "icon": "graph_4"
+    },
+    {
+      "id": "superpowers-dev-framework",
+      "name": "superpowers dev framework",
+      "description": "Superpowers Development Framework plugin for Agent Zero",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/a0-community-plugins/superpowers-dev-framework",
+      "plugin_path": ".",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "agent-zero",
+        "plugin",
+        "superpowers"
+      ],
+      "icon": "developer_guide"
     }
   ]
 }
