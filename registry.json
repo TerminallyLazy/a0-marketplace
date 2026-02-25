@@ -117,6 +117,22 @@
         "superpowers"
       ],
       "icon": "developer_guide"
+    },
+    {
+      "id": "gsd-dev-framework",
+      "name": "GSD Dev Framework",
+      "description": "Get Shit Done Development Framework plugin for Agent Zero",
+      "author": "TerminallyLazy",
+      "repo_url": "https://github.com/a0-community-plugins/gsd-dev-framework",
+      "plugin_path": ".",
+      "version": "1.0.0",
+      "featured": false,
+      "tags": [
+        "agent-zero",
+        "plugin",
+        "get-shit-done"
+      ],
+      "icon": "developer_guide"
     }
   ]
 }
